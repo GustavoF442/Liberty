@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-areia text-cinza-600 antialiased;
+    font-family: "Browallia New", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Cambria, Georgia, "Times New Roman", serif;
+  }
+}
