@@ -59,7 +59,7 @@ export default function LinktreePage() {
           <a href="https://wa.me/5548998604988" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-white/80 hover:bg-white/25 hover:text-white transition-all">
             {WHATSAPP_SVG}
           </a>
-          <a href="https://instagram.com/libertyimoveis" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-white/80 hover:bg-white/25 hover:text-white transition-all">
+          <a href="https://instagram.com/libertyimoveis.sc" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-white/80 hover:bg-white/25 hover:text-white transition-all">
             {INSTAGRAM_SVG}
           </a>
         </div>
@@ -70,7 +70,7 @@ export default function LinktreePage() {
         {/* Botões principais */}
         <div className="space-y-3 mb-10">
           <a
-            href="https://libertyimoveis.com.br"
+            href="https://libertyimoveissc.com.br"
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full text-center py-4 rounded-2xl bg-verde text-white font-semibold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
@@ -78,7 +78,7 @@ export default function LinktreePage() {
             Nosso Site
           </a>
           <a
-            href="https://libertyimoveis.com.br/imoveis"
+            href="https://libertyimoveissc.com.br/imoveis"
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full text-center py-4 rounded-2xl bg-terracota text-white font-semibold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
