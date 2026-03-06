@@ -45,9 +45,9 @@ export default function LinktreePage() {
         <Image
           src="/images/logo/liberty-logo.png"
           alt="Liberty Imóveis"
-          width={180}
-          height={56}
-          className="h-14 w-auto object-contain mb-3"
+          width={260}
+          height={80}
+          className="h-20 w-auto object-contain mb-3"
           priority
         />
         <p className="text-areia-300/60 text-[11px] tracking-[0.2em] uppercase">
@@ -94,15 +94,15 @@ export default function LinktreePage() {
               Nossa Equipe
             </p>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-3">
               {corretores.slice(0, 4).map((c) => {
                 const phone = (c.telefone ?? "").replace(/\D/g, "");
                 const igHandle = c.instagram?.replace(/^@/, "").replace(/^https?:\/\/(www\.)?instagram\.com\//, "").replace(/\/$/, "") || "";
 
                 return (
-                  <div key={c.id} className="bg-white rounded-2xl shadow-md border border-areia-200 p-4 flex flex-col items-center text-center">
+                  <div key={c.id} className="bg-white rounded-2xl shadow-md border border-areia-200 px-4 py-3 flex items-center gap-3">
                     {/* Foto */}
-                    <div className="w-20 h-20 rounded-full overflow-hidden bg-areia-200 border-2 border-verde/20 mb-3">
+                    <div className="w-12 h-12 rounded-full overflow-hidden bg-areia-200 border-2 border-verde/20 flex-shrink-0">
                       {c.foto ? (
                         <img
                           src={c.foto}
@@ -112,18 +112,20 @@ export default function LinktreePage() {
                           onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-verde/30 text-xl font-bold">
+                        <div className="w-full h-full flex items-center justify-center text-verde/30 text-lg font-bold">
                           {c.nome.charAt(0)}
                         </div>
                       )}
                     </div>
 
-                    {/* Nome */}
-                    <h3 className="text-verde font-bold text-sm leading-tight mb-0.5">{c.nome}</h3>
-                    <p className="text-cinza-400 text-[10px] mb-3">CRECI {c.creci}</p>
+                    {/* Nome + CRECI */}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-verde font-bold text-sm leading-tight">{c.nome}</h3>
+                      <p className="text-cinza-400 text-[10px]">CRECI {c.creci}</p>
+                    </div>
 
-                    {/* Ícones de ação */}
-                    <div className="flex items-center gap-2">
+                    {/* Ícones */}
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       {phone && (
                         <a
                           href={`https://wa.me/${phone}`}
