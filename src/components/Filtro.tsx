@@ -1,15 +1,29 @@
 "use client";
 
+function formatarMoeda(valor: string): string {
+  const nums = valor.replace(/\D/g, "");
+  if (!nums) return "";
+  const centavos = parseInt(nums, 10);
+  const reais = centavos / 100;
+  return reais.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
+function parseMoeda(valor: string): number {
+  const nums = valor.replace(/\D/g, "");
+  if (!nums) return 0;
+  return parseInt(nums, 10) / 100;
+}
+
 interface FiltroProps {
   tipos: string[];
-  bairros: string[];
+  cidades: string[];
   tipoSelecionado: string;
-  bairroSelecionado: string;
+  cidadeSelecionada: string;
   finalidadeSelecionada: string;
   precoMin: string;
   precoMax: string;
   onTipoChange: (valor: string) => void;
-  onBairroChange: (valor: string) => void;
+  onCidadeChange: (valor: string) => void;
   onFinalidadeChange: (valor: string) => void;
   onPrecoMinChange: (valor: string) => void;
   onPrecoMaxChange: (valor: string) => void;
@@ -17,18 +31,30 @@ interface FiltroProps {
 
 export default function Filtro({
   tipos,
-  bairros,
+  cidades,
   tipoSelecionado,
-  bairroSelecionado,
+  cidadeSelecionada,
   finalidadeSelecionada,
   precoMin,
   precoMax,
   onTipoChange,
-  onBairroChange,
+  onCidadeChange,
   onFinalidadeChange,
   onPrecoMinChange,
   onPrecoMaxChange,
 }: FiltroProps) {
+  const inputBase = "w-full border border-areia-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-verde-light focus:border-verde-light outline-none bg-white";
+
+  function handlePrecoMin(e: React.ChangeEvent<HTMLInputElement>) {
+    const formatted = formatarMoeda(e.target.value);
+    onPrecoMinChange(formatted);
+  }
+
+  function handlePrecoMax(e: React.ChangeEvent<HTMLInputElement>) {
+    const formatted = formatarMoeda(e.target.value);
+    onPrecoMaxChange(formatted);
+  }
+
   return (
     <div className="bg-areia-50 rounded-2xl shadow-md border border-areia-200 p-6 mb-8">
       <h2 className="font-heading text-lg font-semibold text-verde mb-4">Filtrar imóveis</h2>
@@ -40,7 +66,7 @@ export default function Filtro({
           <select
             value={tipoSelecionado}
             onChange={(e) => onTipoChange(e.target.value)}
-            className="w-full border border-areia-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-verde-light focus:border-verde-light outline-none bg-white"
+            className={inputBase}
           >
             <option value="">Todos</option>
             {tipos.map((tipo) => (
@@ -58,28 +84,27 @@ export default function Filtro({
           <select
             value={finalidadeSelecionada}
             onChange={(e) => onFinalidadeChange(e.target.value)}
-            className="w-full border border-areia-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-verde-light focus:border-verde-light outline-none bg-white"
+            className={inputBase}
           >
             <option value="">Todas</option>
             <option value="Venda">Venda</option>
             <option value="Locação">Locação</option>
-            <option value="Temporada">Temporada</option>
           </select>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-cinza-500 mb-1">
-            Bairro
+            Cidade
           </label>
           <select
-            value={bairroSelecionado}
-            onChange={(e) => onBairroChange(e.target.value)}
-            className="w-full border border-areia-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-verde-light focus:border-verde-light outline-none bg-white"
+            value={cidadeSelecionada}
+            onChange={(e) => onCidadeChange(e.target.value)}
+            className={inputBase}
           >
-            <option value="">Todos</option>
-            {bairros.map((bairro) => (
-              <option key={bairro} value={bairro}>
-                {bairro}
+            <option value="">Todas</option>
+            {cidades.map((cidade) => (
+              <option key={cidade} value={cidade}>
+                {cidade}
               </option>
             ))}
           </select>
@@ -90,11 +115,12 @@ export default function Filtro({
             Preço mínimo
           </label>
           <input
-            type="number"
-            placeholder="R$ 0"
+            type="text"
+            inputMode="numeric"
+            placeholder="R$ 0,00"
             value={precoMin}
-            onChange={(e) => onPrecoMinChange(e.target.value)}
-            className="w-full border border-areia-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-verde-light focus:border-verde-light outline-none bg-white"
+            onChange={handlePrecoMin}
+            className={inputBase}
           />
         </div>
 
@@ -103,11 +129,12 @@ export default function Filtro({
             Preço máximo
           </label>
           <input
-            type="number"
-            placeholder="R$ 999.999"
+            type="text"
+            inputMode="numeric"
+            placeholder="R$ 999.999,00"
             value={precoMax}
-            onChange={(e) => onPrecoMaxChange(e.target.value)}
-            className="w-full border border-areia-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-verde-light focus:border-verde-light outline-none bg-white"
+            onChange={handlePrecoMax}
+            className={inputBase}
           />
         </div>
       </div>

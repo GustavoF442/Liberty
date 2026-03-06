@@ -2,13 +2,21 @@
 
 import { useState, useRef } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { validateImageFile, sanitizeFileName } from "@/lib/upload";
 
 interface UploadImagensProps {
   urls: string[];
   onUrlsChange: (urls: string[]) => void;
+  storageBucket?: string;
+  storagePath?: string;
 }
 
-export default function UploadImagens({ urls, onUrlsChange }: UploadImagensProps) {
+export default function UploadImagens({
+  urls,
+  onUrlsChange,
+  storageBucket = "fotos-imoveis",
+  storagePath = "imoveis",
+}: UploadImagensProps) {
   const [uploading, setUploading] = useState(false);
   const [erro, setErro] = useState("");
   const [failedUrls, setFailedUrls] = useState<Set<string>>(new Set());
@@ -22,29 +30,38 @@ export default function UploadImagens({ urls, onUrlsChange }: UploadImagensProps
     setUploading(true);
     setErro("");
     const novasUrls: string[] = [];
+    const errors: string[] = [];
 
     for (const file of Array.from(files)) {
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const filePath = `imoveis/${fileName}`;
+      const validation = validateImageFile(file);
+      if (!validation.valid) {
+        errors.push(`${file.name}: ${validation.error}`);
+        continue;
+      }
+
+      const fileName = sanitizeFileName(file.name);
+      const filePath = `${storagePath}/${fileName}`;
 
       const { error: uploadError } = await supabase.storage
-        .from("fotos-imoveis")
+        .from(storageBucket)
         .upload(filePath, file);
 
       if (uploadError) {
-        console.error("Erro ao fazer upload:", uploadError.message);
-        setErro("Falha ao enviar uma ou mais imagens. Tente novamente.");
+        errors.push(`${file.name}: Falha no envio.`);
         continue;
       }
 
       const { data: publicUrlData } = supabase.storage
-        .from("fotos-imoveis")
+        .from(storageBucket)
         .getPublicUrl(filePath);
 
       if (publicUrlData?.publicUrl) {
         novasUrls.push(publicUrlData.publicUrl);
       }
+    }
+
+    if (errors.length > 0) {
+      setErro(errors.join(" | "));
     }
 
     onUrlsChange([...urls, ...novasUrls]);

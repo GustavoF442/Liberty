@@ -242,17 +242,37 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
   function validate(): boolean {
     const errs: FormErrors = {};
 
-    if (!form.titulo?.trim()) errs.titulo = "Título é obrigatório";
+    const titulo = (form.titulo ?? "").trim();
+    if (!titulo) errs.titulo = "Título é obrigatório";
+    else if (titulo.length > 120) errs.titulo = "Título deve ter no máximo 120 caracteres";
+
     if (!form.tipo) errs.tipo = "Selecione o tipo do imóvel";
     if (!form.finalidade) errs.finalidade = "Selecione a finalidade";
-    if (!form.preco || parseMoeda(form.preco) <= 0) errs.preco = "Informe um preço válido";
+
+    const preco = parseMoeda(form.preco);
+    if (!form.preco || preco <= 0) errs.preco = "Informe um preço válido";
+    else if (preco > 100_000_000) errs.preco = "Preço excede o limite permitido";
+
     if (!form.bairro?.trim()) errs.bairro = "Bairro é obrigatório";
     if (!form.cidade?.trim()) errs.cidade = "Cidade é obrigatória";
     if (!form.estado) errs.estado = "Selecione o estado";
-    if (!form.logradouro?.trim()) errs.logradouro = "Logradouro é obrigatório";
-    if (!form.numero?.trim()) errs.numero = "Número é obrigatório";
-    if (!form.descricao?.trim()) errs.descricao = "Descrição é obrigatória";
+    // logradouro e numero são opcionais
+
+    const descricao = (form.descricao ?? "").trim();
+    if (!descricao) errs.descricao = "Descrição é obrigatória";
+    else if (descricao.length > 5000) errs.descricao = "Descrição deve ter no máximo 5000 caracteres";
+
     if (fotosUrls.length === 0) errs.fotos = "Envie pelo menos uma foto";
+
+    const areaUtil = parseDecimal(form.area_util);
+    const areaTotal = parseDecimal(form.area_total);
+    if (areaUtil < 0) errs.area_util = "Área não pode ser negativa";
+    if (areaTotal < 0) errs.area_total = "Área não pode ser negativa";
+
+    const condVal = parseMoeda(form.valor_condominio);
+    const iptuVal = parseMoeda(form.valor_iptu);
+    if (condVal < 0) errs.valor_condominio = "Valor não pode ser negativo";
+    if (iptuVal < 0) errs.valor_iptu = "Valor não pode ser negativo";
 
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -320,7 +340,7 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
     }
 
     if (error) {
-      console.error("Erro Supabase:", error.message);
+      void error.message;
       setErroGeral(
         isEdicao
           ? "Não foi possível atualizar o imóvel. Verifique os dados e tente novamente."

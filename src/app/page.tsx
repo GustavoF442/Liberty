@@ -17,74 +17,250 @@ export default function HomePage() {
         .select("*")
         .eq("ativo", true)
         .order("nome")
-        .limit(3);
+        .limit(4);
       if (data) setCorretores(data as Corretor[]);
     }
     fetchCorretores();
   }, []);
 
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    name: "Liberty Imóveis LTDA",
+    url: "https://libertyimoveis.com.br",
+    logo: "https://libertyimoveis.com.br/images/logo/liberty-logo.png",
+    telephone: "+55-48-99860-4988",
+    email: "libertyimoveis3@gmail.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Rua Otaviano Dadam, 7",
+      addressLocality: "São João Batista",
+      addressRegion: "SC",
+      postalCode: "88240-000",
+      addressCountry: "BR",
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "18:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "09:00",
+        closes: "12:00",
+      },
+    ],
+  };
+
   return (
-    <div className="-mt-20">
-      {/* Seção 1 – Hero */}
+    <div className="-mt-20 lg:-mt-[100px]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+
+      {/* ── Seção 1 – Hero ── */}
       <Hero />
 
-      {/* Seção 2 – Corretores */}
+      {/* ── Seção 2 – Categorias ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-stretch justify-center gap-0">
+            {/* Litoral */}
+            <Link href="/imoveis?categoria=litoral" className="group relative overflow-hidden flex-1 aspect-[3/4] md:aspect-auto md:min-h-[480px] bg-areia-200">
+              <img
+                src="/images/categorias/litoral.jpg"
+                alt="Imóveis no litoral"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent group-hover:from-black/70 transition-all duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <h3 className="font-heading text-2xl font-bold text-white">
+                  Imóveis no litoral
+                </h3>
+              </div>
+            </Link>
+
+            {/* Divisor vertical */}
+            <div className="hidden md:block w-px bg-white/80 flex-shrink-0" />
+            <div className="md:hidden h-px bg-white/80 flex-shrink-0" />
+
+            {/* Urbanos */}
+            <Link href="/imoveis?categoria=urbano" className="group relative overflow-hidden flex-1 aspect-[3/4] md:aspect-auto md:min-h-[480px] bg-areia-200">
+              <img
+                src="/images/categorias/urbano.jpg"
+                alt="Imóveis Urbanos"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent group-hover:from-black/70 transition-all duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <h3 className="font-heading text-2xl font-bold text-white">
+                  Imóveis Urbanos
+                </h3>
+              </div>
+            </Link>
+
+            {/* Divisor vertical */}
+            <div className="hidden md:block w-px bg-white/80 flex-shrink-0" />
+            <div className="md:hidden h-px bg-white/80 flex-shrink-0" />
+
+            {/* Rurais */}
+            <Link href="/imoveis?categoria=rural" className="group relative overflow-hidden flex-1 aspect-[3/4] md:aspect-auto md:min-h-[480px] bg-areia-200">
+              <img
+                src="/images/categorias/rural.jpg"
+                alt="Imóveis Rurais"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent group-hover:from-black/70 transition-all duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <h3 className="font-heading text-2xl font-bold text-white">
+                  Imóveis Rurais
+                </h3>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Seção 3 – Imóveis em Destaque ── */}
+      <Destaques />
+
+      {/* ── Seção 4 – Equipe Liberty ── */}
       {corretores.length > 0 && (
-        <section className="py-20 bg-areia-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+        <section className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-verde">
-                Nossos Corretores
+                Equipe Liberty
               </h2>
-              <p className="mt-3 text-lg text-cinza-400 max-w-2xl mx-auto">
-                Profissionais qualificados prontos para atendê-lo
-              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {corretores.map((c) => (
-                <div key={c.id} className="bg-areia-50 rounded-2xl shadow-md border border-areia-200 overflow-hidden text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                  <div className="relative w-full h-64 bg-areia-200">
+                <Link
+                  key={c.id}
+                  href="/corretores"
+                  className="group flex flex-col items-center text-center hover:opacity-90 transition-opacity"
+                >
+                  <div className="w-32 h-32 rounded-full overflow-hidden bg-areia-200 border-2 border-verde/20 shadow-md group-hover:shadow-lg transition-shadow">
                     {c.foto ? (
-                      <img src={c.foto} alt={c.nome} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
+                      <img
+                        src={c.foto}
+                        alt={c.nome}
+                        className="w-full h-full object-cover"
+                        style={{ objectPosition: c.foto_posicao || "center top" }}
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                      />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-verde/30">
-                        <svg className="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                       </div>
                     )}
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-heading text-lg font-bold text-verde">{c.nome}</h3>
-                    <p className="text-sm text-cinza-400 mt-1">CRECI: {c.creci}</p>
-                    {c.especialidade && <p className="text-xs text-terracota font-medium mt-1">{c.especialidade}</p>}
-                    <a
-                      href={`https://wa.me/${c.telefone.replace(/\D/g, "")}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 mt-4 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors"
-                    >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                      </svg>
-                      WhatsApp
-                    </a>
-                  </div>
-                </div>
+                  <h3 className="font-heading text-base font-bold text-cinza-700 mt-4">{c.nome}</h3>
+                  <p className="text-sm text-cinza-500 mt-1">Corretor de Imóveis</p>
+                  {c.especialidade && <p className="text-xs text-cinza-400">{c.especialidade}</p>}
+                  <p className="text-xs text-cinza-400 mt-1 font-medium">CRECI: {c.creci}</p>
+                </Link>
               ))}
-            </div>
-
-            <div className="text-center mt-10">
-              <Link href="/corretores" className="text-verde hover:text-verde/80 font-semibold inline-flex items-center gap-2 transition-colors">
-                Ver toda a equipe
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-              </Link>
             </div>
           </div>
         </section>
       )}
 
-      {/* Seção 3 – Imóveis em Destaque */}
-      <Destaques />
+      {/* ── Seção 5 – Quem somos ── */}
+      <section className="py-20 bg-areia-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Vídeo / Imagem placeholder */}
+            <div className="relative aspect-video bg-verde/10 rounded-2xl overflow-hidden border border-areia-200">
+              <video
+                className="w-full h-full object-cover"
+                poster="/images/wallpapers/video-poster.jpg"
+                controls
+                preload="none"
+              >
+                <source src="/videos/liberty-cidades.mp4" type="video/mp4" />
+              </video>
+              {/* Fallback se não houver vídeo */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="text-center text-cinza-400">
+                  <svg className="w-16 h-16 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Texto institucional */}
+            <div>
+              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-verde mb-6">
+                Quem somos
+              </h2>
+              <p className="text-cinza-600 text-base lg:text-lg leading-relaxed mb-4">
+                A Liberty Imóveis nasceu com o propósito de conectar pessoas aos lugares onde
+                novas histórias podem começar. Nosso símbolo, o pássaro, representa liberdade,
+                confiança e a certeza de que sempre é possível alcançar voos mais altos.
+              </p>
+              <p className="text-cinza-600 text-base lg:text-lg leading-relaxed">
+                Contamos com uma equipe especializada em diferentes áreas do mercado imobiliário,
+                com atuação em imóveis no litoral, urbanos e rurais. Também oferecemos suporte
+                em regularização e avaliação imobiliária, garantindo segurança, transparência
+                e clareza em cada etapa do processo.
+              </p>
+              <Link href="/sobre" className="inline-flex items-center gap-2 text-verde hover:text-verde/80 font-semibold mt-6 transition-colors">
+                Saiba mais sobre a Liberty
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Seção 6 – Localização ── */}
+      <section className="py-20 bg-areia-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-verde">
+              Venha conhecer a Liberty Imóveis
+            </h2>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden shadow-md border border-areia-200">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3554.8!2d-48.8474!3d-27.2733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sRua+Otaviano+Dadam%2C+7+-+Centro%2C+S%C3%A3o+Jo%C3%A3o+Batista+-+SC!5e0!3m2!1spt-BR!2sbr!4v1"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Localização Liberty Imóveis"
+            />
+          </div>
+
+          <div className="text-center mt-8 space-y-1">
+            <p className="text-cinza-600 font-medium">Rua Otaviano Dadam, 7 — Centro</p>
+            <p className="text-cinza-500">São João Batista — SC, 88240-000</p>
+            <a
+              href="https://www.google.com.br/maps/search/Rua%20Otaviano%20Dadam%207%20Centro%20S%C3%A3o%20Jo%C3%A3o%20Batista%20SC"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-verde hover:text-verde/80 text-sm font-medium mt-2 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+              Abrir no Google Maps
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -13,10 +13,10 @@ export default function ImoveisPage() {
   const [erro, setErro] = useState("");
 
   const [tipos, setTipos] = useState<string[]>([]);
-  const [bairros, setBairros] = useState<string[]>([]);
+  const [cidades, setCidades] = useState<string[]>([]);
 
   const [tipoSelecionado, setTipoSelecionado] = useState("");
-  const [bairroSelecionado, setBairroSelecionado] = useState("");
+  const [cidadeSelecionada, setCidadeSelecionada] = useState("");
   const [finalidadeSelecionada, setFinalidadeSelecionada] = useState("");
   const [precoMin, setPrecoMin] = useState("");
   const [precoMax, setPrecoMax] = useState("");
@@ -30,7 +30,7 @@ export default function ImoveisPage() {
         .order("created_at", { ascending: false });
 
       if (error) {
-        console.error("Erro ao buscar imóveis:", error.message);
+        void error.message;
         setErro("Não foi possível carregar os imóveis. Tente novamente.");
         setLoading(false);
         return;
@@ -41,9 +41,9 @@ export default function ImoveisPage() {
       setFiltrados(lista);
 
       const tiposUnicos = Array.from(new Set(lista.map((i) => i.tipo).filter(Boolean)));
-      const bairrosUnicos = Array.from(new Set(lista.map((i) => i.bairro).filter(Boolean)));
+      const cidadesUnicas = Array.from(new Set(lista.map((i) => i.cidade).filter(Boolean)));
       setTipos(tiposUnicos);
-      setBairros(bairrosUnicos);
+      setCidades(cidadesUnicas);
       setLoading(false);
     }
 
@@ -56,21 +56,23 @@ export default function ImoveisPage() {
     if (tipoSelecionado) {
       resultado = resultado.filter((i) => i.tipo === tipoSelecionado);
     }
-    if (bairroSelecionado) {
-      resultado = resultado.filter((i) => i.bairro === bairroSelecionado);
+    if (cidadeSelecionada) {
+      resultado = resultado.filter((i) => i.cidade === cidadeSelecionada);
     }
     if (finalidadeSelecionada) {
       resultado = resultado.filter((i) => i.finalidade === finalidadeSelecionada);
     }
     if (precoMin) {
-      resultado = resultado.filter((i) => i.preco >= Number(precoMin));
+      const min = parseInt(precoMin.replace(/\D/g, ""), 10) / 100;
+      if (min > 0) resultado = resultado.filter((i) => i.preco >= min);
     }
     if (precoMax) {
-      resultado = resultado.filter((i) => i.preco <= Number(precoMax));
+      const max = parseInt(precoMax.replace(/\D/g, ""), 10) / 100;
+      if (max > 0) resultado = resultado.filter((i) => i.preco <= max);
     }
 
     setFiltrados(resultado);
-  }, [tipoSelecionado, bairroSelecionado, finalidadeSelecionada, precoMin, precoMax, imoveis]);
+  }, [tipoSelecionado, cidadeSelecionada, finalidadeSelecionada, precoMin, precoMax, imoveis]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -89,14 +91,14 @@ export default function ImoveisPage() {
 
       <Filtro
         tipos={tipos}
-        bairros={bairros}
+        cidades={cidades}
         tipoSelecionado={tipoSelecionado}
-        bairroSelecionado={bairroSelecionado}
+        cidadeSelecionada={cidadeSelecionada}
         finalidadeSelecionada={finalidadeSelecionada}
         precoMin={precoMin}
         precoMax={precoMax}
         onTipoChange={setTipoSelecionado}
-        onBairroChange={setBairroSelecionado}
+        onCidadeChange={setCidadeSelecionada}
         onFinalidadeChange={setFinalidadeSelecionada}
         onPrecoMinChange={setPrecoMin}
         onPrecoMaxChange={setPrecoMax}

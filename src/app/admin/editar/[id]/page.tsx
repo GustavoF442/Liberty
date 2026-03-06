@@ -33,7 +33,7 @@ export default function EditarImovelPage() {
         .single();
 
       if (error || !data) {
-        console.error("Erro ao buscar imóvel:", error?.message);
+        void error?.message;
         setErro("Imóvel não encontrado.");
         setLoading(false);
         return;

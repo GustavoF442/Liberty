@@ -47,6 +47,10 @@ export interface Imovel {
   disponivel: boolean;
   destaque: boolean;
 
+  /* ── SEO ── */
+  slug?: string;
+  updated_at?: string;
+
   /* ── Corretor ── */
   corretor_id: string | null;
 }
@@ -58,9 +62,11 @@ export interface Corretor {
   creci: string;
   telefone: string;
   email?: string;
+  instagram?: string;
   especialidade?: string;
   descricao_publica?: string;
   observacoes_internas?: string;
   foto: string;
+  foto_posicao?: string;
   ativo: boolean;
 }

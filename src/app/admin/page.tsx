@@ -39,7 +39,7 @@ export default function AdminDashboardPage() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("Erro ao buscar imóveis:", error.message);
+      void error.message;
       setErroGeral("Não foi possível carregar os imóveis. Tente novamente.");
     }
 
@@ -53,7 +53,7 @@ export default function AdminDashboardPage() {
     const { error } = await supabase.from("imoveis").delete().eq("id", id);
 
     if (error) {
-      console.error("Erro ao excluir:", error.message);
+      void error.message;
       setErroGeral("Não foi possível excluir o imóvel. Tente novamente.");
       return;
     }

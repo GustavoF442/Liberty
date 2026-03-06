@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 import { Imovel } from "@/types/Imovel";
 import ImovelCard from "@/components/ImovelCard";
@@ -17,10 +18,10 @@ export default function Destaques() {
         .eq("disponivel", true)
         .eq("destaque", true)
         .order("created_at", { ascending: false })
-        .limit(6);
+        .limit(5);
 
       if (error) {
-        console.error("Erro ao buscar destaques:", error.message);
+        void error.message;
         setLoading(false);
         return;
       }
@@ -34,7 +35,7 @@ export default function Destaques() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-verde-50">
+      <section className="py-20 bg-areia-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-verde mx-auto" />
         </div>
@@ -45,21 +46,27 @@ export default function Destaques() {
   if (destaques.length === 0) return null;
 
   return (
-    <section className="py-20 bg-verde-50">
+    <section className="py-20 bg-areia-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl sm:text-4xl font-bold text-verde">
-            Imóveis em Destaque
+            Imóveis em destaque
           </h2>
-          <p className="mt-3 text-lg text-cinza-400 max-w-2xl mx-auto">
-            Confira as melhores oportunidades selecionadas para você
-          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {destaques.map((imovel) => (
             <ImovelCard key={imovel.id} imovel={imovel} />
           ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <Link
+            href="/imoveis"
+            className="inline-block border-2 border-verde text-verde hover:bg-verde hover:text-white font-semibold text-sm px-8 py-3 transition-all duration-300 tracking-wide"
+          >
+            Ver todos os imóveis
+          </Link>
         </div>
       </div>
     </section>

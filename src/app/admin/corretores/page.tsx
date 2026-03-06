@@ -24,9 +24,11 @@ interface FormState {
   creci: string;
   telefone: string;
   email: string;
+  instagram: string;
   especialidade: string;
   descricao_publica: string;
   observacoes_internas: string;
+  foto_posicao: string;
   ativo: boolean;
 }
 
@@ -35,9 +37,11 @@ const emptyForm: FormState = {
   creci: "",
   telefone: "",
   email: "",
+  instagram: "",
   especialidade: "",
   descricao_publica: "",
   observacoes_internas: "",
+  foto_posicao: "center top",
   ativo: true,
 };
 
@@ -80,7 +84,7 @@ export default function AdminCorretoresPage() {
       .order("nome");
 
     if (error) {
-      console.error("Erro ao buscar corretores:", error.message);
+      void error.message;
       setErroGeral("Não foi possível carregar os corretores.");
     }
     setCorretores((data as Corretor[]) || []);
@@ -123,7 +127,7 @@ export default function AdminCorretoresPage() {
       .upload(fileName, file);
 
     if (uploadError) {
-      console.error("Erro upload:", uploadError.message);
+      void uploadError.message;
       setErroGeral("Falha ao enviar a foto. Tente novamente.");
       setUploading(false);
       return;
@@ -156,9 +160,11 @@ export default function AdminCorretoresPage() {
       creci: c.creci || "",
       telefone: c.telefone || "",
       email: c.email || "",
+      instagram: c.instagram || "",
       especialidade: c.especialidade || "",
       descricao_publica: c.descricao_publica || "",
       observacoes_internas: c.observacoes_internas || "",
+      foto_posicao: c.foto_posicao || "center top",
       ativo: c.ativo ?? true,
     });
     setFotoUrl(c.foto || "");
@@ -177,11 +183,13 @@ export default function AdminCorretoresPage() {
       creci: (form.creci ?? "").trim(),
       telefone: (form.telefone ?? "").trim(),
       email: (form.email ?? "").trim() || null,
+      instagram: (form.instagram ?? "").trim() || null,
       especialidade: (form.especialidade ?? "").trim() || null,
       descricao_publica: (form.descricao_publica ?? "").trim() || null,
       observacoes_internas: (form.observacoes_internas ?? "").trim() || null,
       ativo: form.ativo,
       foto: fotoUrl || null,
+      foto_posicao: (form.foto_posicao ?? "center top").trim(),
     };
 
     let error;
@@ -193,7 +201,7 @@ export default function AdminCorretoresPage() {
     }
 
     if (error) {
-      console.error("Erro Supabase:", error.message);
+      void error.message;
       setErroGeral(editandoId ? "Erro ao atualizar corretor." : "Erro ao cadastrar corretor.");
       setSaving(false);
       return;
@@ -411,6 +419,12 @@ export default function AdminCorretoresPage() {
                     <label htmlFor="email" className="block text-sm font-medium text-cinza-500 mb-1">Email</label>
                     <input id="email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="corretor@email.com" className={inputBase + " border-areia-300"} />
                   </div>
+                  <div>
+                    <label htmlFor="instagram" className="block text-sm font-medium text-cinza-500 mb-1">
+                      Instagram <span className="text-xs text-cinza-300">(@ ou link)</span>
+                    </label>
+                    <input id="instagram" name="instagram" type="text" value={form.instagram} onChange={handleChange} placeholder="@usuario ou instagram.com/usuario" className={inputBase + " border-areia-300"} />
+                  </div>
                 </div>
               </div>
 
@@ -431,6 +445,20 @@ export default function AdminCorretoresPage() {
                       Observações internas <span className="text-xs text-cinza-300">(não exibidas no site)</span>
                     </label>
                     <textarea id="observacoes_internas" name="observacoes_internas" rows={2} value={form.observacoes_internas} onChange={handleChange} placeholder="Notas internas sobre o corretor..." className={inputBase + " border-areia-300 resize-y"} />
+                  </div>
+                  <div>
+                    <label htmlFor="foto_posicao" className="block text-sm font-medium text-cinza-500 mb-1">
+                      Enquadramento da foto <span className="text-xs text-cinza-300">(posição do corte)</span>
+                    </label>
+                    <select id="foto_posicao" name="foto_posicao" value={form.foto_posicao} onChange={handleChange} className={inputBase + " border-areia-300"}>
+                      <option value="center top">Topo (rosto acima)</option>
+                      <option value="center center">Centro</option>
+                      <option value="center 20%">Levemente acima</option>
+                      <option value="center 30%">Um pouco acima</option>
+                      <option value="center 40%">Quase ao centro</option>
+                      <option value="center 60%">Abaixo do centro</option>
+                      <option value="center bottom">Base</option>
+                    </select>
                   </div>
                 </div>
               </div>
