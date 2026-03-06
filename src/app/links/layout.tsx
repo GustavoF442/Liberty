@@ -10,5 +10,17 @@ export default function LinksLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            header, footer, .fixed.bottom-6.right-6 { display: none !important; }
+            main { padding-top: 0 !important; }
+          `,
+        }}
+      />
+      {children}
+    </>
+  );
 }

@@ -33,6 +33,10 @@ export default function ImovelDetalhe({ imovel, corretor }: Props) {
 
   function handleContatoSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const msg = encodeURIComponent(
+      `Olá${corretor ? `, ${corretor.nome}` : ""}!\n\nMe chamo *${contatoNome}* (${contatoEmail}).\n\nTenho interesse no imóvel "*${imovel.titulo}*"${imovel.codigo_referencia ? ` (Ref: ${imovel.codigo_referencia})` : ""} — ${fmt(imovel.preco)}.\n\n${contatoMsg}`
+    );
+    window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, "_blank");
     setContatoEnviado(true);
   }
 

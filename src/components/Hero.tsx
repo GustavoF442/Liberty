@@ -8,7 +8,7 @@ export default function Hero() {
       {/* YouTube video background */}
       <div className="absolute inset-0 pointer-events-none">
         <iframe
-          src="https://www.youtube.com/embed/t7k2Wyf8beY?autoplay=1&mute=1&loop=1&playlist=t7k2Wyf8beY&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0&iv_load_policy=3"
+          src="https://www.youtube.com/embed/t7k2Wyf8beY?autoplay=1&mute=1&loop=1&playlist=t7k2Wyf8beY&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0&iv_load_policy=3&start=260"
           title="Liberty Imóveis"
           allow="autoplay; encrypted-media"
           allowFullScreen
