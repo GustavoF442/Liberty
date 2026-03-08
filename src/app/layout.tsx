@@ -15,9 +15,12 @@ export const metadata: Metadata = {
   description:
     "Encontre casas, apartamentos e terrenos em São João Batista e região. Atendimento personalizado, equipe certificada e os melhores imóveis para compra e locação.",
   icons: {
-    icon: "/images/logo/favicon.png",
-    shortcut: "/images/logo/favicon.png",
-    apple: "/images/logo/favicon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/favicon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/favicon.png",
   },
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
