@@ -27,8 +27,8 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     name: "Liberty Imóveis LTDA",
-    url: "https://libertyimoveis.com.br",
-    logo: "https://libertyimoveis.com.br/images/logo/liberty-logo.png",
+    url: "https://libertyimoveissc.com.br",
+    logo: "https://libertyimoveissc.com.br/images/logo/liberty-logo.png",
     telephone: "+55-48-99860-4988",
     email: "libertyimoveis3@gmail.com",
     address: {

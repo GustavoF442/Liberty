@@ -70,7 +70,7 @@ export default async function Image() {
               textTransform: "uppercase" as const,
             }}
           >
-            libertyimoveis.com.br
+            libertyimoveissc.com.br
           </div>
         </div>
       </div>

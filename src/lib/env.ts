@@ -12,6 +12,6 @@ export const env = {
   SUPABASE_URL: getEnvVar("NEXT_PUBLIC_SUPABASE_URL"),
   SUPABASE_ANON_KEY: getEnvVar("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
   SITE_URL:
-    process.env.NEXT_PUBLIC_SITE_URL || "https://libertyimoveis.com.br",
+    process.env.NEXT_PUBLIC_SITE_URL || "https://libertyimoveissc.com.br",
   IS_PRODUCTION: process.env.NODE_ENV === "production",
 } as const;

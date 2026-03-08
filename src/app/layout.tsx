@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://libertyimoveis.com.br";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://libertyimoveissc.com.br";
 
 export const metadata: Metadata = {
   title: {

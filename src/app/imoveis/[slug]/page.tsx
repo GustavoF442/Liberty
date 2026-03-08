@@ -5,7 +5,7 @@ import ImovelDetalhe from "@/components/ImovelDetalhe";
 import { Imovel, Corretor } from "@/types/Imovel";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://libertyimoveis.com.br";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://libertyimoveissc.com.br";
 
 function getSupabase() {
   return createClient(
