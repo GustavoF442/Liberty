@@ -45,7 +45,6 @@ export default function Navbar() {
 
           {/* Links à direita */}
           <nav className="hidden lg:flex items-center gap-8 ml-10">
-            <Link href="/corretores" className={linkClass}>Corretores</Link>
             <Link href="/venda-seu-imovel" className={linkClass}>Venda seu Imóvel</Link>
             <Link href="/contato" className={linkClass}>Contato</Link>
           </nav>
@@ -79,9 +78,6 @@ export default function Navbar() {
             </Link>
             <Link href="/imoveis" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-lg text-areia-100 hover:bg-white/10 hover:text-white transition-colors font-medium text-sm">
               Imóveis
-            </Link>
-            <Link href="/corretores" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-lg text-areia-100 hover:bg-white/10 hover:text-white transition-colors font-medium text-sm">
-              Corretores
             </Link>
             <Link href="/venda-seu-imovel" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-lg text-areia-100 hover:bg-white/10 hover:text-white transition-colors font-medium text-sm">
               Venda seu Imóvel
