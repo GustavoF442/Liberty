@@ -4,6 +4,13 @@ export const metadata: Metadata = {
   title: "Contato",
   description:
     "Entre em contato com a Liberty Imóveis. Atendimento por WhatsApp, telefone e e-mail.",
+  alternates: { canonical: "https://libertyimoveissc.com.br/contato" },
+  openGraph: {
+    title: "Contato | Liberty Imóveis",
+    description:
+      "Entre em contato com a Liberty Imóveis. Atendimento por WhatsApp, telefone e e-mail.",
+    url: "https://libertyimoveissc.com.br/contato",
+  },
 };
 
 export default function ContatoPage() {

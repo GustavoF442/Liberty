@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   title: "Venda seu Imóvel",
   description:
     "Anuncie seu imóvel com a Liberty Imóveis. Equipe especializada para avaliar e vender seu patrimônio com segurança e transparência.",
+  alternates: { canonical: "https://libertyimoveissc.com.br/venda-seu-imovel" },
+  openGraph: {
+    title: "Venda seu Imóvel | Liberty Imóveis",
+    description:
+      "Anuncie seu imóvel com a Liberty Imóveis. Equipe especializada para avaliar e vender seu patrimônio com segurança e transparência.",
+    url: "https://libertyimoveissc.com.br/venda-seu-imovel",
+  },
 };
 
 export default function VendaSeuImovelPage() {

@@ -21,6 +21,9 @@ export default function Footer() {
               Encontre o imóvel dos seus sonhos com segurança e confiança.
               A Liberty Imóveis está aqui para ajudá-lo em cada etapa.
             </p>
+            <p className="text-xs text-areia-300/60 font-semibold tracking-wide mt-3">
+              CRECI 10921-J
+            </p>
           </div>
 
           {/* Navegação */}
@@ -40,6 +43,12 @@ export default function Footer() {
               </Link>
               <Link href="/sobre" className="text-sm text-areia-300/80 hover:text-terracota-200 transition-colors">
                 Sobre
+              </Link>
+              <Link href="/contato" className="text-sm text-areia-300/80 hover:text-terracota-200 transition-colors">
+                Contato
+              </Link>
+              <Link href="/venda-seu-imovel" className="text-sm text-areia-300/80 hover:text-terracota-200 transition-colors">
+                Venda seu Imóvel
               </Link>
             </nav>
           </div>
@@ -95,7 +104,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-areia-400/60">
-          <p>&copy; {new Date().getFullYear()} Liberty Imóveis. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Liberty Imóveis LTDA — CRECI 10921-J. Todos os direitos reservados.</p>
           <p>Desenvolvido por Gustavo Fraga</p>
         </div>
       </div>

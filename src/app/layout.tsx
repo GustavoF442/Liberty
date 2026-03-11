@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     apple: "/favicon.png",
   },
   metadataBase: new URL(SITE_URL),
-  alternates: { canonical: "/" },
+  alternates: { canonical: SITE_URL },
   openGraph: {
     siteName: "Liberty Imóveis",
     locale: "pt_BR",
@@ -73,6 +73,7 @@ export default function RootLayout({
                 longitude: -48.8492,
               },
               telephone: "+55-48-99860-4988",
+              taxID: "CRECI 10921-J",
               areaServed: {
                 "@type": "City",
                 name: "São João Batista",

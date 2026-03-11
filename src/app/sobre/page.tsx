@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   title: "Sobre Nós",
   description:
     "Conheça a Liberty Imóveis: história, missão, valores e compromisso com o mercado imobiliário em São João Batista e região.",
+  alternates: { canonical: "https://libertyimoveissc.com.br/sobre" },
+  openGraph: {
+    title: "Sobre Nós | Liberty Imóveis",
+    description:
+      "Conheça a Liberty Imóveis: história, missão, valores e compromisso com o mercado imobiliário em São João Batista e região.",
+    url: "https://libertyimoveissc.com.br/sobre",
+  },
 };
 
 export default function SobrePage() {
@@ -21,6 +28,9 @@ export default function SobrePage() {
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-areia-200/90 max-w-2xl mx-auto leading-relaxed">
             Conectando pessoas aos lugares onde novas histórias podem começar.
+          </p>
+          <p className="mt-4 text-sm text-areia-300/50 font-semibold tracking-widest">
+            CRECI 10921-J
           </p>
         </div>
       </section>
